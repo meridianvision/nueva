@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Meridian Vision</title>
+<meta name="description" content="Estudio audiovisual, marketing y tecnología con IA en una sola mesa. Santiago de Chile.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Marca MV sep-2026: una sola apariencia oscura, por decisión de marca */
+  :root{
+    color-scheme:dark;
+    --bg:#010306; --panel:#0A0F16; --panel2:#0E151F; --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+    --ink:#E8EEF5; --muted:#8FA0B4; --dim:#5A6778;
+    --cyan:#22D3EE; --cyan-soft:rgba(34,211,238,.12); --ladybug:#E5484D;
+    --sans:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+    --gut:max(16px,5vw);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:84px}
+  html,body{background:var(--bg);color:var(--ink);margin:0;font-family:var(--sans)}
+  body{font-size:16px;line-height:1.5}
+  a{color:inherit}
+  img{max-width:100%}
+  .gut{padding-inline:var(--gut)}
+  .eyebrow{font:500 12px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--cyan)}
+  h2{font-size:clamp(32px,4.6vw,60px);line-height:1;letter-spacing:-.035em;margin:12px 0 0;text-wrap:balance;font-weight:700}
+  h3{font-weight:700}
+  .lead{color:var(--muted);font-size:18px;line-height:1.55;max-width:58ch;margin:18px 0 0}
+  :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+
+  /* Aviso de revisión */
+  .review{position:relative;z-index:30;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding-block:9px;background:var(--ladybug);color:#fff;font:500 12px var(--mono);letter-spacing:.04em;text-align:center}
+  .review button{font:inherit;color:#fff;background:rgba(0,0,0,.22);border:0;border-radius:999px;padding:4px 10px;cursor:pointer}
+
+  /* Navegación */
+  .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px;background:linear-gradient(var(--bg) 30%,rgba(1,3,6,0))}
+  .logo{font:500 13px var(--mono);letter-spacing:.14em;text-decoration:none;white-space:nowrap}
+  .logo b{color:var(--ladybug)}
+  .links{display:flex;gap:2px;padding:5px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line);backdrop-filter:blur(14px)}
+  .links a{font:500 13px var(--mono);color:var(--muted);text-decoration:none;padding:8px 13px;border-radius:999px;white-space:nowrap}
+  .links a:hover{color:var(--ink);background:rgba(255,255,255,.06)}
+  .links a.cta{color:var(--bg);background:var(--cyan)}
+
+  /* Portada con Garrita */
+  .hero{position:relative;height:min(88vh,860px);min-height:540px;overflow:hidden;cursor:pointer;margin-top:-64px}
+  .hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at center,transparent 28%,#000 78%)}
+  .word{position:absolute;top:48%;transform:translateY(-50%);font-weight:700;font-size:clamp(44px,8.5vw,136px);letter-spacing:-.045em;line-height:.9;z-index:2;pointer-events:none}
+  .word small{display:block;font:400 12px var(--mono);letter-spacing:.2em;color:var(--cyan);margin-bottom:14px}
+  .word.l{left:var(--gut)} .word.r{right:var(--gut);text-align:right}
+  .hero-foot{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);z-index:2;width:min(calc(100% - 32px),580px);text-align:center;padding:18px 20px;border-radius:16px;background:rgba(1,3,6,.6);backdrop-filter:blur(10px);border:1px solid var(--line)}
+  .hero-foot p{margin:0 0 14px;color:var(--muted);line-height:1.5}
+  .hero-foot p strong{color:var(--ink);font-weight:500}
+  .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .btn{font:500 14px var(--mono);padding:12px 20px;border-radius:10px;border:1px solid var(--line2);color:var(--ink);text-decoration:none;background:rgba(255,255,255,.05);cursor:pointer}
+  .btn:hover{background:rgba(255,255,255,.09)}
+  .btn.p{background:var(--cyan);color:var(--bg);border-color:transparent}
+  .btn.p:hover{filter:brightness(1.08)}
+  .hint{position:absolute;right:var(--gut);bottom:12px;font:400 11px var(--mono);color:var(--dim);z-index:2}
+  .mute{position:absolute;left:var(--gut);bottom:10px;z-index:3;font:400 11px var(--mono);color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:999px;padding:6px 10px;cursor:pointer}
+
+  section{padding-block:120px 0}
+
+  /* Puerta única */
+  .door{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:end}
+  .index{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+  .index a{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line);text-decoration:none}
+  .index a:hover .nm{color:var(--cyan)}
+  .index .k{font:500 12px var(--mono);color:var(--dim)}
+  .index .nm{font-size:22px;font-weight:500;letter-spacing:-.02em}
+  .index .d{display:block;color:var(--muted);font-size:14px;margin-top:4px}
+  .index .ar{font:500 14px var(--mono);color:var(--dim)}
+
+  /* Departamentos */
+  .dept{display:grid;grid-template-columns:minmax(260px,5fr) 7fr;gap:clamp(28px,4vw,64px);align-items:start}
+  .dept.flip{grid-template-columns:7fr minmax(260px,5fr)}
+  .dept.flip .ph{order:2}
+  .ph{position:relative;aspect-ratio:4/5;max-width:100%;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:var(--panel);position:sticky;top:96px}
+  .ph img,.ph canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .ph canvas.gesto{opacity:0;transition:opacity .25s;z-index:1;pointer-events:none}
+  .ph.jugando canvas.gesto{opacity:1}
+  .ph .tag{position:absolute;top:14px;left:14px;z-index:2;font:500 11px var(--mono);letter-spacing:.12em;padding:6px 10px;border-radius:999px;background:rgba(1,3,6,.62);border:1px solid var(--line);backdrop-filter:blur(8px)}
+  .ph figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:40px 16px 14px;font:400 12px var(--mono);color:var(--muted);background:linear-gradient(transparent,rgba(1,3,6,.9))}
+  .who{font:500 12px var(--mono);color:var(--cyan);margin-top:18px;display:block}
+  .svc{list-style:none;margin:32px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .svc li{background:var(--bg);padding:20px 20px 22px}
+  .svc b{display:block;font-size:17px;font-weight:500;letter-spacing:-.01em;margin-bottom:6px}
+  .svc span{color:var(--muted);font-size:14px;line-height:1.5;display:block}
+  .gets{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .gets em{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-style:normal;margin-right:4px}
+  .chip{font:500 12px var(--mono);padding:6px 10px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+
+  /* Laboratorio */
+  .exps{margin-top:32px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .exp{padding:18px;border-radius:14px;border:1px solid var(--line);background:var(--panel)}
+  .exp b{display:block;font-size:17px;font-weight:500;margin-bottom:4px}
+  .exp span{color:var(--muted);font-size:14px;line-height:1.45}
+
+  /* Control Garrita */
+  .qc{border-radius:22px;border:1px solid var(--line);background:radial-gradient(ellipse at 0% 0%,rgba(229,72,77,.10),transparent 55%),var(--panel);padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px}
+  .stamp{display:inline-flex;align-items:center;gap:10px;font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ladybug);border:1px solid rgba(229,72,77,.5);border-radius:999px;padding:7px 12px}
+  .stamp i{width:8px;height:8px;border-radius:50%;background:var(--ladybug)}
+  .checks{list-style:none;margin:0;padding:0;display:grid;gap:10px;align-content:start}
+  .checks li{display:grid;grid-template-columns:22px 1fr;gap:12px;padding:14px 16px;border-radius:12px;background:rgba(1,3,6,.5);border:1px solid var(--line)}
+  .checks li::before{content:"";width:18px;height:18px;margin-top:2px;border-radius:5px;border:1.5px solid var(--cyan);background:linear-gradient(135deg,transparent 45%,var(--cyan) 45% 60%,transparent 60%) no-repeat}
+  .checks b{font-weight:500;display:block}
+  .checks span{color:var(--muted);font-size:14px}
+
+  /* Proceso */
+  .flow{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);counter-reset:p}
+  .flow li{padding:24px 18px 26px 0;position:relative;counter-increment:p}
+  .flow li::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--bg);border:2px solid var(--cyan)}
+  .flow li.g::before{background:var(--ladybug);border-color:var(--ladybug)}
+  .flow li::after{content:counter(p,decimal-leading-zero);position:absolute;top:24px;right:18px;font:500 11px var(--mono);color:var(--dim)}
+  .flow b{display:block;font-size:18px;font-weight:500;margin-bottom:6px;padding-right:28px}
+  .flow span{color:var(--muted);font-size:14px;line-height:1.45;display:block;max-width:30ch}
+
+  /* Preguntas */
+  .faq{margin-top:40px;border-top:1px solid var(--line);max-width:880px}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-size:19px;font-weight:500;letter-spacing:-.01em}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font:400 20px var(--mono);color:var(--cyan)}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{margin:0 0 22px;color:var(--muted);max-width:68ch;line-height:1.6}
+
+  /* Contacto */
+  .contact{margin-top:120px;padding:56px max(20px,4vw);border-radius:22px;border:1px solid var(--line);background:radial-gradient(ellipse at 85% 0%,rgba(34,211,238,.10),transparent 60%),var(--panel);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:center}
+  .contact h2{font-size:clamp(28px,3.6vw,46px)}
+  .cbox{display:grid;gap:12px}
+  .cbox .btn{text-align:center}
+  .mail{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px 10px 16px;border-radius:10px;border:1px solid var(--line);font:500 14px var(--mono);user-select:all;overflow-wrap:anywhere}
+  .mail button{font:500 12px var(--mono);color:var(--ink);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer;user-select:none;flex:none}
+  .small{font:400 12px var(--mono);color:var(--dim)}
+
+  footer{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;padding-block:48px 34px;margin-top:40px;font:400 12px var(--mono);color:var(--dim)}
+
+  @media (max-width:960px){
+    .door,.dept,.dept.flip,.qc,.contact{grid-template-columns:1fr}
+    .dept.flip .ph{order:0}
+    .ph{position:relative;top:auto;max-width:520px}
+    .flow{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:8px}
+    .links a:not(.cta){display:none}
+  }
+  @media (max-width:560px){
+    .word{top:14%;transform:none}.word.r{top:auto;bottom:38%}
+    .svc,.exps{grid-template-columns:1fr}
+    .flow{grid-template-columns:1fr}
+    .hint{display:none}
+    section{padding-block:88px 0}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="review" id="review">
+  <span>Versión de revisión para socios · sep-2026 · el número de WhatsApp es provisorio</span>
+  <button type="button" id="closeReview">Ocultar</button>
+</div>
+
+<nav class="nav gut" aria-label="Principal">
+  <a class="logo" href="#top">MERIDIAN<b>·</b>VISION</a>
+  <div class="links">
+    <a href="#estudio">Estudio</a><a href="#marketing">Marketing</a><a href="#tecnologia">Tecnología</a><a href="#laboratorio">Laboratorio</a><a href="#proceso">Cómo trabajamos</a><a class="cta" href="#contacto">Hablemos</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="c" aria-label="Garrita, nuestra jefa de calidad, con su café, siguiendo el cursor con la mirada" role="img"></canvas>
+  <div class="grid"></div>
+  <div class="word l"><small>// ESTRATEGIA</small>Meridian</div>
+  <div class="word r"><small>CÓDIGO //</small>Vision</div>
+  <div class="hero-foot">
+    <p><strong>Video, marketing y tecnología con IA, en una sola mesa.</strong> Construimos lo que otros subcontratan. Garrita revisa cada entrega.</p>
+    <div class="btns"><a class="btn p" href="#departamentos">Ver departamentos</a><a class="btn wa" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></div>
+  </div>
+  <div class="hint">mueve el mouse · haz clic para invitarle un café</div>
+  <button id="mute" class="mute" type="button" aria-pressed="false">🔊 sonido</button>
+</header>
+
+<main>
+  <section id="departamentos" class="gut">
+    <div class="door">
+      <div>
+        <span class="eyebrow">Una sola puerta</span>
+        <h2>Hablas con una persona. Trabajan los tres equipos.</h2>
+        <p class="lead">Cada proyecto entra por un mismo contacto y lo toma el equipo que sabe hacerlo. Si necesita video, campaña y software a la vez, los tres trabajan juntos desde el primer día, con un solo presupuesto y una sola persona responsable.</p>
+      </div>
+      <ul class="index">
+        <li><a href="#estudio"><span class="k">A</span><span><span class="nm">Estudio Audiovisual</span><span class="d">Video corporativo, streaming y piezas con IA</span></span><span class="ar">↓</span></a></li>
+        <li><a href="#marketing"><span class="k">B</span><span><span class="nm">Marketing y Crecimiento</span><span class="d">Auditoría, anuncios, redes y reportes semanales</span></span><span class="ar">↓</span></a></li>
+        <li><a href="#tecnologia"><span class="k">C</span><span><span class="nm">Tecnología e IA</span><span class="d">Software a medida, automatización y agentes</span></span><span class="ar">↓</span></a></li>
+        <li><a href="#laboratorio"><span class="k">+</span><span><span class="nm">Laboratorio</span><span class="d">Nuestras marcas propias, donde probamos primero</span></span><span class="ar">↓</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="estudio" class="gut">
+    <div class="dept">
+      <figure class="ph" data-clip="estudio" style="margin:0">
+        <span class="tag">ESTUDIO</span>
+        <img src="img/estudio.webp" alt="Equipo del estudio: un beagle en silla de director con megáfono, un gato en la cámara de cine, un ratón con la jirafa de sonido y un conejo con la claqueta">
+        <figcaption>Pasa el mouse sobre el equipo</figcaption>
+      </figure>
+      <div>
+        <span class="eyebrow">Estudio Audiovisual</span>
+        <h2>Del guion a la pantalla, sin cambiar de equipo.</h2>
+        <p class="lead">Producimos video para empresas de principio a fin. Se decide en la línea de tiempo, no en una planilla: grabamos con varias cámaras, montamos rápido y entregamos en los formatos que usa cada canal.</p>
+        <span class="who">Beagle dirige · gato en cámara · ratón en sonido · conejo en claqueta</span>
+        <ul class="svc">
+          <li><b>Video corporativo</b><span>Guion, rodaje, edición y entrega. Cápsulas, entrevistas, pódcast en video y piezas para campañas internas.</span></li>
+          <li><b>Transmisiones en vivo</b><span>Eventos, lanzamientos y jornadas con varias cámaras y gráfica en pantalla.</span></li>
+          <li><b>Animación con IA generativa</b><span>Escenas, personajes y transiciones creadas con IA, dirigidas por un equipo que sabe de cine.</span></li>
+          <li><b>Voces y locución</b><span>Locutores, voces clonadas con autorización y versiones en otros idiomas.</span></li>
+          <li><b>Pantallas corporativas</b><span>Contenido y programación para pantallas en oficinas, sucursales y recepciones.</span></li>
+          <li><b>Contrato mensual</b><span>Para empresas que producen todos los meses: un equipo asignado y una tarifa conocida.</span></li>
+        </ul>
+        <div class="gets"><em>Recibes</em><span class="chip">Master en 16:9</span><span class="chip">Versiones 9:16 y 1:1</span><span class="chip">Subtítulos</span><span class="chip">Acta de entrega</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="marketing" class="gut">
+    <div class="dept flip">
+      <figure class="ph" data-clip="marketing" style="margin:0">
+        <span class="tag">MARKETING</span>
+        <img src="img/marketing.webp" alt="Equipo de marketing: un golden retriever en silla de oficina con la pata cruzada y su café, un zorro con laptop, un conejo con una tablet y un hámster sobre los post-it">
+        <figcaption>Pasa el mouse sobre el equipo</figcaption>
+      </figure>
+      <div>
+        <span class="eyebrow">Marketing y Crecimiento</span>
+        <h2>Medimos antes de opinar.</h2>
+        <p class="lead">Empezamos por mirar cómo vende hoy tu empresa: la web, las redes, los anuncios y lo que dicen tus clientes. Después proponemos, y cada semana te mostramos qué está trayendo clientes y qué no.</p>
+        <span class="who">Golden, zorro, conejo y hámster · la planilla manda</span>
+        <ul class="svc">
+          <li><b>Auditoría de marca y presencia</b><span>Web, redes, Google Maps, anuncios y reseñas, con una lista de lo que conviene arreglar primero.</span></li>
+          <li><b>Anuncios en Meta y Google</b><span>Campañas con cuentas cuidadas desde el primer día, para no arriesgar bloqueos.</span></li>
+          <li><b>Redes y comunidad</b><span>Calendario, piezas y respuestas. Nada se publica sin tu aprobación.</span></li>
+          <li><b>Inteligencia de mercado</b><span>Qué hace tu competencia, qué busca tu cliente y dónde hay espacio para ti.</span></li>
+          <li><b>SEO local</b><span>Tu ficha de Google y las palabras con que tus clientes ya te describen en sus reseñas.</span></li>
+          <li><b>Plan 360°</b><span>Estrategia, contenido, video y anuncios en un solo plan mensual.</span></li>
+        </ul>
+        <div class="gets"><em>Recibes</em><span class="chip">Diagnóstico inicial</span><span class="chip">Reporte de una página cada semana</span><span class="chip">Cola de publicación aprobada</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tecnologia" class="gut">
+    <div class="dept">
+      <figure class="ph" data-clip="tecnologia" style="margin:0">
+        <span class="tag">TECNOLOGÍA</span>
+        <img src="img/tecnologia.webp" alt="Equipo de tecnología: un bulldog francés con audífonos en silla gamer, un búho con lentes tecleando, dos ratones y un erizo, frente a pantallas con código">
+        <figcaption>Pasa el mouse sobre el equipo</figcaption>
+      </figure>
+      <div>
+        <span class="eyebrow">Tecnología e IA</span>
+        <h2>Construimos lo que otros subcontratan.</h2>
+        <p class="lead">Software propio, automatizaciones y agentes de IA que hacen trabajo real dentro de tu empresa. Primero ordenamos el proceso y después lo automatizamos, porque automatizar el desorden solo lo hace más rápido.</p>
+        <span class="who">Bulldog, búho, ratones y erizo · revisan todo dos veces</span>
+        <ul class="svc">
+          <li><b>Software a medida</b><span>Portales, plataformas internas y herramientas hechas para cómo trabaja tu equipo.</span></li>
+          <li><b>Automatización</b><span>Flujos que conectan tus sistemas, correos, planillas y mensajería, sin copiar y pegar.</span></li>
+          <li><b>Agentes de IA</b><span>Asistentes que califican prospectos, ordenan documentos o preparan informes, siempre con una persona que supervisa.</span></li>
+          <li><b>Auditoría SAP y ciberseguridad</b><span>Revisión de accesos, roles y configuraciones, con un informe accionable.</span></li>
+          <li><b>Webs y portales de clientes</b><span>Sitios rápidos y portales privados para que tus clientes vean su avance.</span></li>
+          <li><b>Infraestructura propia</b><span>Servidores, dominios y respaldos administrados, con datos que se quedan en Chile cuando lo necesitas.</span></li>
+        </ul>
+        <div class="gets"><em>Recibes</em><span class="chip">Código y accesos a tu nombre</span><span class="chip">Documentación</span><span class="chip">Soporte acordado</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="laboratorio" class="gut">
+    <div class="dept flip">
+      <figure class="ph" data-clip="laboratorio" style="margin:0">
+        <span class="tag">LABORATORIO</span>
+        <img src="img/laboratorio.webp" alt="Equipo del laboratorio: un corgi en un taburete leyendo el guion, un panda rojo en el micrófono de pódcast, un cuy filmando y un conejo con la luz de anillo">
+        <figcaption>Pasa el mouse sobre el equipo</figcaption>
+      </figure>
+      <div>
+        <span class="eyebrow">Laboratorio</span>
+        <h2>Lo probamos primero en casa.</h2>
+        <p class="lead">Antes de ofrecerle algo a un cliente, lo hacemos con nuestras propias marcas y con nuestra propia plata. Lo que funciona aquí se convierte en servicio. Lo que no, se queda como aprendizaje.</p>
+        <span class="who">Corgi, panda rojo, cuy y conejo · graban hasta que sale</span>
+        <div class="exps">
+          <div class="exp"><b>SARANG LOVE</b><span>Serie de historias con voces clonadas y animación con IA, publicada en YouTube y Facebook.</span></div>
+          <div class="exp"><b>Avatares IA</b><span>Personajes digitales con la misma cara, voz y estilo en cada publicación.</span></div>
+          <div class="exp"><b>The Long Vigil</b><span>Serie de misterio en inglés, escrita y producida con agentes de IA.</span></div>
+          <div class="exp"><b>Esta portada</b><span>Garrita es una perrita real. La convertimos en un video que sigue tu cursor, y hoy es un servicio.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="garrita" class="gut">
+    <div class="qc">
+      <div>
+        <span class="stamp"><i></i>Control Garrita</span>
+        <h2>Nada sale sin su visto bueno.</h2>
+        <p class="lead">Garrita es la salchicha mini de nuestra CEO y la cara de nuestro control de calidad. Antes de cada entrega, el responsable del equipo revisa el trabajo con una lista hecha para ese tipo de pieza. Si algo no pasa, vuelve al equipo, no a tu bandeja de entrada.</p>
+      </div>
+      <ul class="checks" aria-label="Qué revisa el control de calidad">
+        <li><span><b>Lo pedido, no más ni menos</b><span>El entregable calza con el brief firmado.</span></span></li>
+        <li><span><b>Ortografía y datos</b><span>Tildes, nombres, cifras y logos, uno por uno.</span></span></li>
+        <li><span><b>Formatos por canal</b><span>Medidas, zonas seguras en vertical y peso de archivo.</span></span></li>
+        <li><span><b>Tu material se queda contigo</b><span>No lo subimos a herramientas que entrenan modelos con él.</span></span></li>
+        <li><span><b>Se envía con acta</b><span>Qué se entregó, dónde está y cuál es el siguiente paso.</span></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="proceso" class="gut">
+    <span class="eyebrow">Cómo trabajamos</span>
+    <h2>Ocho pasos, sin sorpresas.</h2>
+    <ol class="flow">
+      <li><b>Conversación</b><span>Nos cuentas el problema. Entendemos el negocio antes de hablar de piezas.</span></li>
+      <li><b>Brief</b><span>Una página: objetivo, entregable, plazo y contraparte.</span></li>
+      <li><b>Propuesta</b><span>Alcance cerrado y presupuesto claro, en PDF.</span></li>
+      <li><b>Orden de compra</b><span>Con tu aprobación formal, partimos.</span></li>
+      <li><b>Producción</b><span>El equipo que sabe hacerlo, con avances que puedes ver.</span></li>
+      <li class="g"><b>Control Garrita</b><span>Revisión con lista de chequeo antes de que te llegue.</span></li>
+      <li><b>Entrega</b><span>Archivos, acta y siguiente paso acordado.</span></li>
+      <li><b>Caso de estudio</b><span>Solo si nos autorizas a contarlo.</span></li>
+    </ol>
+  </section>
+
+  <section id="preguntas" class="gut">
+    <span class="eyebrow">Preguntas</span>
+    <h2>Lo que suelen preguntarnos.</h2>
+    <div class="faq">
+      <details><summary>¿Por qué no publican precios?</summary><p>Porque cada proyecto tiene un alcance distinto. Después de la primera conversación te enviamos una propuesta con el alcance cerrado y el valor total, sin letra chica.</p></details>
+      <details><summary>¿Puedo contratar solo un departamento?</summary><p>Sí. Muchos clientes parten con un video o una auditoría. Si después necesitas otro equipo, sigues hablando con la misma persona.</p></details>
+      <details><summary>¿Qué pasa con la información de mi empresa cuando usan IA?</summary><p>Tu material solo se usa para tu proyecto. No lo subimos a herramientas que entrenan sus modelos con lo que reciben, y cuando hace falta trabajamos en nuestra propia infraestructura.</p></details>
+      <details><summary>¿Quién es dueño de lo que construyen?</summary><p>Tú. El código, las cuentas y los archivos finales quedan a nombre de tu empresa, salvo que acordemos otra cosa por escrito.</p></details>
+      <details><summary>¿Garrita existe?</summary><p>Sí. Es una salchicha mini negra y fuego, con collar rojo. La portada se hizo a partir de sus fotos.</p></details>
+    </div>
+
+    <div class="contact" id="contacto">
+      <div>
+        <span class="eyebrow">Hablemos</span>
+        <h2>¿Qué necesita tu empresa?</h2>
+        <p class="lead">Cuéntanos el problema por WhatsApp o por correo. Te respondemos en horario hábil. Nosotros traemos al equipo y Garrita trae el café.</p>
+      </div>
+      <div class="cbox">
+        <a class="btn p wa" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+        <div class="mail"><span id="mailText">r.miranda@meridianvision.cl</span><button type="button" id="copyMail">Copiar</button></div>
+        <span class="small">WhatsApp +56 9 5162 4008 · Las Condes, Santiago</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="gut">
+  <span>Meridian Vision SpA · Cerro El Plomo 5931, of. 1213, Las Condes, Santiago de Chile</span>
+  <span>© 2026 · Garrita aprueba esta página</span>
+</footer>
+
+<script>
+  // Enlaces de WhatsApp con mensaje prellenado (número provisorio: confirmar el de empresa).
+  const WA = 'https://wa.me/56951624008?text=' + encodeURIComponent('Hola Meridian Vision, quiero conversar sobre un proyecto');
+  document.querySelectorAll('a.wa').forEach(a => a.href = WA);
+
+  // Aviso de revisión
+  const rv = document.getElementById('review');
+  try { if (localStorage.getItem('mv-review-hidden')) rv.hidden = true; } catch {}
+  document.getElementById('closeReview').addEventListener('click', () => { rv.hidden = true; try { localStorage.setItem('mv-review-hidden', '1'); } catch {} });
+
+  // Copiar correo
+  const cb = document.getElementById('copyMail');
+  cb.addEventListener('click', () => {
+    const t = document.getElementById('mailText').textContent;
+    const ok = () => { cb.textContent = 'Copiado'; setTimeout(() => cb.textContent = 'Copiar', 1600); };
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(ok).catch(() => {
+      const r = document.createRange(); r.selectNodeContents(document.getElementById('mailText'));
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    });
+  });
+
+  // Portada: Garrita sigue el cursor (cuadros en canvas), toma café al hacer clic y ladra al salir.
+  const hero = document.getElementById('top'), c = document.getElementById('c'), ctx = c.getContext('2d');
+  const load = (dir, n) => Array.from({length: n}, (_, i) => { const im = new Image(); im.src = `f/${dir}/f${String(i + 1).padStart(3, '0')}.webp`; return im; });
+  const SCRUB = load('scrub', 73), CLIPS = { sorbo: load('sorbo', 61), ladrido: load('ladrido', 37) };
+  const guau = new Audio('f/ladrido/guau.mp3'); guau.preload = 'auto'; guau.volume = 0.35;
+  let target = .5, current = .5, drawn = -1, clip = null, clipStart = 0, interacted = false, muted = false, visible = true;
+
+  const setTarget = x => { target = Math.min(1, Math.max(0, x / innerWidth)); };
+  addEventListener('mousemove', e => setTarget(e.clientX));
+  addEventListener('touchmove', e => setTarget(e.touches[0].clientX), {passive: true});
+  function resize(){ c.width = hero.clientWidth * devicePixelRatio; c.height = hero.clientHeight * devicePixelRatio; drawn = -1; }
+  addEventListener('resize', resize); resize();
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(hero);
+
+  function drawImg(im){
+    if (!im.complete || !im.naturalWidth) return false;
+    const s = Math.max(c.height / im.naturalHeight, (c.width * .62) / im.naturalWidth), w = im.naturalWidth * s, h = im.naturalHeight * s;
+    ctx.fillStyle = '#010306'; ctx.fillRect(0, 0, c.width, c.height);
+    ctx.drawImage(im, (c.width - w) / 2, (c.height - h) / 2, w, h); return true;
+  }
+  function play(name){
+    if (clip) return;
+    clip = CLIPS[name]; clipStart = performance.now();
+    if (name === 'ladrido' && interacted && !muted) { guau.currentTime = 0; guau.play().catch(() => {}); }
+  }
+  hero.addEventListener('click', e => { if (e.target.closest('a,button')) return; interacted = true; play('sorbo'); });
+  document.addEventListener('mouseout', e => {
+    if (e.relatedTarget || e.clientY > 0) return;
+    try { if (sessionStorage.getItem('garrita-ladro')) return; sessionStorage.setItem('garrita-ladro', '1'); } catch {}
+    play('ladrido');
+  });
+  const muteBtn = document.getElementById('mute');
+  muteBtn.addEventListener('click', () => { muted = !muted; interacted = true; muteBtn.setAttribute('aria-pressed', muted); muteBtn.textContent = muted ? '🔇 silencio' : '🔊 sonido'; });
+
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function tick(now){
+    if (visible) {
+      if (clip) {
+        const i = Math.floor((now - clipStart) / (1000 / 12));
+        if (i < clip.length) drawImg(clip[i]); else { clip = null; current = target = .5; drawn = -1; }
+      } else {
+        current += (target - current) * (still ? 1 : .12);
+        const i = Math.round(current * (SCRUB.length - 1));
+        if (i !== drawn && drawImg(SCRUB[i])) drawn = i;
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  // Gestos de los equipos: una hoja de sprites por clip (10 columnas × 6 filas, 12 fps).
+  const SPR = {cols:10, rows:6, n:60, fps:12};
+  document.querySelectorAll('[data-clip]').forEach(ph => {
+    const cv = document.createElement('canvas'); cv.className = 'gesto'; ph.appendChild(cv);
+    const g = cv.getContext('2d'), sheet = new Image(); sheet.src = `f/equipos/${ph.dataset.clip}.webp`;
+    let playing = false;
+    function run(){
+      if (still || playing || !sheet.complete || !sheet.naturalWidth) return;
+      playing = true; ph.classList.add('jugando');
+      const fw = sheet.naturalWidth / SPR.cols, fh = sheet.naturalHeight / SPR.rows, t0 = performance.now();
+      cv.width = fw; cv.height = fh;
+      (function step(now){
+        const i = Math.floor((now - t0) / (1000 / SPR.fps));
+        if (i >= SPR.n) { playing = false; ph.classList.remove('jugando'); return; }
+        g.drawImage(sheet, (i % SPR.cols) * fw, Math.floor(i / SPR.cols) * fh, fw, fh, 0, 0, fw, fh);
+        requestAnimationFrame(step);
+      })(t0);
+    }
+    ph.addEventListener('mouseenter', run);
+    if (matchMedia('(hover: none)').matches) {
+      ph.querySelector('figcaption').textContent = 'Toca para ver al equipo';
+      ph.addEventListener('click', run);
+      new IntersectionObserver(([e]) => { if (e.intersectionRatio > .6) run(); }, {threshold: .6}).observe(ph);
+    }
+  });
+</script>
+</body>
+</html>
